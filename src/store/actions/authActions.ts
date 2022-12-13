@@ -1,69 +1,66 @@
 import * as api from '../../api';
 import { Dispatch } from 'redux';
-import { Action, authActions } from '../actions';
+import { Action, ActionType } from './actionType';
+import axios from 'axios';
+import { openAlertMessage } from './alertActions';
+import { NavigateFunction } from 'react-router-dom';
 
-// import { openAlertMessage } from './alertActions';
+export const login = (userDetails: IUserDetails) => {
+    return async (dispatch: Dispatch<any>) => {
+        const response: any = await api.login(userDetails);
 
-// export const getActions = (dispatch: Dispatch<Action>) => {
-//     dispatch({
-//         type: ActionType.SET_USER_DETAILS,
-//         userDetails: {
-//             mail: '',
-//             password: '',
-//             username: '',
-//         },
-//     });
-// };
+        if (response.error) {
+            dispatch(openAlertMessage(response?.exception?.response?.data));
+        } else {
+            const { userDetails } = response?.data;
+            localStorage.setItem('user', JSON.stringify(userDetails));
 
-// export const setUserDetails = (userDetails:) => {
-//     return {
-//         type: ActionType.SET_USER_DETAILS,
-//         userDetails,
-//     };
-// };
-
-// const login = (userDetails: IUserDetails, history: any) => {
-//     return async (dispatch: any) => {
-//         const response: any = await api.login(userDetails);
-//         console.log(response);
-//         if (response.error) {
-//             dispatch(openAlertMessage(response?.exception?.response?.data));
-//         } else {
-//             const { userDetails } = response?.data;
-//             localStorage.setItem('user', JSON.stringify(userDetails));
-
-//             dispatch(setUserDetails(userDetails));
-//             history.push('/dashboard');
-//         }
-//     };
-// };
+            dispatch(setUserDetails(userDetails));
+            // history.push('/dashboard');
+        }
+    };
+};
 interface IUserDetails {
     mail: string;
     password: string;
     username: string;
 }
-// interface GenericFunc<T> {
-//     (param: T): T;
-// }
-// const GenericFunc = <T>(param: T): T => {
-//     return param;
-// };
 
-const register = (userDetails: IUserDetails) => {
-    return async (dispatch: Dispatch<Action>) => {
-        // const response: any = await api.register(userDetails);
-        dispatch({
-            type: authActions.SET_USER_DETAILS,
-        });
-        // console.log(response);
-        // if (response.error) {
-        //     dispatch(openAlertMessage(response?.exception?.response?.data));
-        // } else {
-        //     const { userDetails } = response?.data;
-        //     localStorage.setItem('user', JSON.stringify(userDetails));
-
-        //     dispatch(setUserDetails(userDetails));
-        //     history.push('/dashboard');
-        // }
+export const setUserDetails = (userDetails: IUserDetails): Action => {
+    return {
+        type: ActionType.SET_USER_DETAILS,
+        userDetails,
     };
+};
+
+export const registerAction = (userDetails: IUserDetails) => {
+    return async (dispatch: Dispatch<any>) => {
+        const response = await api.register(userDetails);
+        console.log('response');
+        // dispatch(setUserDetails(userDetails));
+        console.log('response', response);
+        if (response) {
+            // console.log('response', response);
+            // dispatch(openAlertMessage(response?.exception?.response?.data));
+        } else {
+            localStorage.setItem('user', JSON.stringify(userDetails));
+
+            // 실행코드
+            dispatch(setUserDetails(userDetails));
+            // history.push('/dashboard');
+        }
+    };
+
+    // dispatch(setUserDetails(userDetails));
+
+    // if (response) {
+    //     // const { userDetails } = response?.data;
+    //     // console.log('userDetials', userDetails);
+    //     // dispatch(openAlertMessage(response?.exception?.response?.data));
+    // } else {
+    //     // const { userDetails } = response?.data;
+    //     // localStorage.setItem('user', JSON.stringify(userDetails));
+    //     // history.push('/dashboard');
+    // }
+    // };
 };

@@ -6,19 +6,20 @@ import RegisterPageFooter from './RegisterPageFooter';
 import { validateRegisterForm } from '../.././shared/utils/validator';
 import * as actions from '../../store/actions/authActions';
 import { connect } from 'react-redux';
-import { Dispatch } from 'react';
-import { Action } from '../../store/actions';
-import { ActionType } from '../../store/action-types';
+import { registerAction } from '../../store/actions/authActions';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { Dispatch } from 'redux';
+type IUserDetails = {
+    mail: string;
+    password: string;
+    username: string;
+};
 
-// type UserDetails = {
-//     mail: string;
-//     password: string;
-//     username: string;
-// };
-// interface IProps {
-//     setUserDetails: (userDetails: UserDetails) => void;
-// }
-const RegisterPage = ({ setUserDetails }) => {
+interface IProps {
+    registerFunc: any;
+}
+const RegisterPage = ({ registerFunc }: IProps) => {
+    const navigate = useNavigate();
     const [mail, setMail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -30,7 +31,7 @@ const RegisterPage = ({ setUserDetails }) => {
             password,
             username,
         };
-        setUserDetails(userDetails);
+        registerFunc(userDetails);
     };
     useEffect(() => {
         setIsFormValid(validateRegisterForm({ mail, password, username }));
@@ -53,10 +54,8 @@ const RegisterPage = ({ setUserDetails }) => {
         </AuthBox>
     );
 };
-const mapActionsToProps = (dispatch: Dispatch<Action>) => ({
-    setUserDetails: () => {
-        return dispatch(actions.setUserDetails);
-    },
+const mapActionsToProps = (dispatch: Dispatch<any>) => ({
+    registerFunc: (userDetails: IUserDetails) => dispatch(registerAction(userDetails)),
 });
 
 export default connect(null, mapActionsToProps)(RegisterPage);

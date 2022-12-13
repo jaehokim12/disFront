@@ -4,12 +4,12 @@ interface IProps {
     username: string;
 }
 
-// export const validateLoginForm = ({ mail, password }: IProps) => {
-//     const isMailValid = validateMail(mail);
-//     const isPasswordValid = validatePassword(password);
+export const validateLoginForm = ({ mail, password }: IProps) => {
+    const isMailValid = validateMail(mail);
+    const isPasswordValid = validatePassword(password);
 
-//     return isMailValid && isPasswordValid;
-// };
+    return isMailValid && isPasswordValid;
+};
 
 export const validateRegisterForm = ({ mail, password, username }: IProps) => {
     return validateMail(mail) && validatePassword(password) && validateUsername(username);

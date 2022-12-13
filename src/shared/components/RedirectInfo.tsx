@@ -11,7 +11,7 @@ interface Iprops {
     text: string;
     redirectText: string;
     additionalStyles: React.CSSProperties | undefined;
-    redirectHandler: () => void;
+    redirectHandler: any;
 }
 const RedirectInfo = ({ text, redirectText, additionalStyles, redirectHandler }: Iprops) => {
     return (

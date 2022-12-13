@@ -10,20 +10,16 @@ const getFormNotValidMessage = () => {
 const getFormValidMessage = () => {
     return 'Press to register!';
 };
-type userDetail = {
-    mail: string;
-    password: string;
-    username: string;
-};
+
 interface IProps {
-    handleRegister: () => { returnsetUserDetails(userDetails: userDetail) };
+    handleRegister: () => any;
     isFormValid: boolean;
 }
 
 const RegisterPageFooter = ({ handleRegister, isFormValid }: IProps) => {
     const navigate = Router.useNavigate();
     const handlePushToLoginPage = () => {
-        navigate('./login');
+        navigate('/login');
     };
     return (
         <>

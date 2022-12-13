@@ -1,9 +1,54 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import AuthBox from '../../shared/components/AuthBox';
+import LoginPageFooter from './LoginPageFooter';
+import LoginPageHeader from './LoginPageHeader';
+import LoginPageInputs from './LoginPageInputs';
+import { validateLoginForm } from '../../shared/utils/validator';
+import { connect } from 'react-redux';
+import { useNavigate, NavigateFunction } from 'react-router-dom';
+import { login } from '../../store/actions/authActions';
+import { Dispatch } from 'redux';
 
-// type Props = {};
-
-function LoginPage() {
-    return <div>LoginPage</div>;
+interface Iprops {
+    loginFunc: any;
 }
 
-export default LoginPage;
+const LoginPage = ({ loginFunc }: Iprops) => {
+    const navigate = useNavigate();
+
+    const [mail, setMail] = useState('');
+    const [password, setPassword] = useState('');
+    const [isFormValid, setIsFormValid] = useState(false);
+
+    useEffect(() => {
+        setIsFormValid(validateLoginForm({ mail, password } as any));
+    }, [mail, password, setIsFormValid]);
+
+    // type handleFun = ()=>(dispatch: Dispatch<any>) => Promise<void>
+
+    const handleLogin = () => {
+        const userDetails = {
+            mail,
+            password,
+        };
+
+        loginFunc(userDetails);
+    };
+
+    return (
+        <AuthBox>
+            <LoginPageHeader />
+            <LoginPageInputs mail={mail} setMail={setMail} password={password} setPassword={setPassword} />
+            <LoginPageFooter isFormValid={isFormValid} handleLogin={handleLogin} />
+        </AuthBox>
+    );
+};
+interface ILoginDetail {
+    mail: string;
+    password: string;
+}
+const mapActionsToProps = (dispatch: Dispatch<any>) => ({
+    loginFunc: (userDetails: any) => dispatch(login(userDetails)),
+});
+
+export default connect(null, mapActionsToProps)(LoginPage);

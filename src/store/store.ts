@@ -7,7 +7,7 @@ import alertReducer from './reducers/alertReducer';
 
 const rootReducer = combineReducers({
     auth: authReducer,
-    alert: alertReducer,
+    // alert: alertReducer,
 });
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));

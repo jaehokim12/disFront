@@ -1,6 +1,4 @@
-// import { authActions } from '../actions/authActions';
-import { ActionType } from '../action-types';
-import { Action } from '../actions';
+import { ActionType, Action } from '../actions/actionType';
 
 const initState = {
     userDetails: null,
@@ -13,6 +11,7 @@ const reducer = (state = initState, action: Action) => {
                 ...state,
                 userDetails: action.userDetails,
             };
+
         default:
             return state;
     }
