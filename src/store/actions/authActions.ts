@@ -5,18 +5,17 @@ import axios from 'axios';
 import { openAlertMessage } from './alertActions';
 import { NavigateFunction } from 'react-router-dom';
 
-export const login = (userDetails: IUserDetails) => {
+export const login = (userDetails: IUserDetails, navigate: NavigateFunction) => {
     return async (dispatch: Dispatch<any>) => {
         const response: any = await api.login(userDetails);
-
+        console.log('response', response);
         if (response.error) {
-            // dispatch(openAlertMessage(response?.exception?.response?.data));
+            dispatch(openAlertMessage(response.error));
         } else {
-            const { userDetails } = response?.data;
+            const { userDetails } = response.data;
             localStorage.setItem('user', JSON.stringify(userDetails));
-
             dispatch(setUserDetails(userDetails));
-            // history.push('/dashboard');
+            navigate('/dashboard');
         }
     };
 };
@@ -33,34 +32,18 @@ export const setUserDetails = (userDetails: IUserDetails): Action => {
     };
 };
 
-export const registerAction = (userDetails: IUserDetails) => {
+export const registerAction = (userDetails: IUserDetails, navigate: NavigateFunction) => {
     return async (dispatch: Dispatch<any>) => {
         const response = await api.register(userDetails);
-
+        console.log('response', response);
         if (response.error) {
-            console.log('response.data', response.data);
-            console.log('response.error', response.error);
-
-            // console.log('responseerror', response.error);
             dispatch(openAlertMessage(response.error));
         } else {
+            console.log('response', response.data);
+            const userDetails: any = response.data;
             localStorage.setItem('user', JSON.stringify(userDetails));
-
             dispatch(setUserDetails(userDetails));
-            // history.push('/dashboard');
+            navigate('/dashboard');
         }
     };
-
-    // dispatch(setUserDetails(userDetails));
-
-    // if (response) {
-    //     // const { userDetails } = response?.data;
-    //     // console.log('userDetials', userDetails);
-    //     // dispatch(openAlertMessage(response?.exception?.response?.data));
-    // } else {
-    //     // const { userDetails } = response?.data;
-    //     // localStorage.setItem('user', JSON.stringify(userDetails));
-    //     // history.push('/dashboard');
-    // }
-    // };
 };

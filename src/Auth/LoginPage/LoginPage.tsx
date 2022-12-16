@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { useNavigate, NavigateFunction } from 'react-router-dom';
 import { login } from '../../store/actions/authActions';
 import { Dispatch } from 'redux';
+import { NavLink } from 'react-router-dom';
 
 interface Iprops {
     loginFunc: any;
@@ -32,7 +33,9 @@ const LoginPage = ({ loginFunc }: Iprops) => {
             password,
         };
 
-        loginFunc(userDetails);
+        loginFunc(userDetails, navigate);
+        //  handlelogin이라는 값을 물려받으면
+        // 물려받기만 하면 action함수 실행함
     };
 
     return (
@@ -48,7 +51,7 @@ interface ILoginDetail {
     password: string;
 }
 const mapActionsToProps = (dispatch: Dispatch<any>) => ({
-    loginFunc: (userDetails: any) => dispatch(login(userDetails)),
+    loginFunc: (userDetails: any, navigate: NavigateFunction) => dispatch(login(userDetails, navigate)),
 });
 
 export default connect(null, mapActionsToProps)(LoginPage);

@@ -16,7 +16,7 @@ type IUserDetails = {
 };
 
 interface IProps {
-    registerFunc: any;
+    registerFunc: (userDetails: IUserDetails, navigate: NavigateFunction) => (dispatch: Dispatch<any>) => Promise<void>;
 }
 const RegisterPage = ({ registerFunc }: IProps) => {
     const navigate = useNavigate();
@@ -31,7 +31,7 @@ const RegisterPage = ({ registerFunc }: IProps) => {
             password,
             username,
         };
-        registerFunc(userDetails);
+        registerFunc(userDetails, navigate);
     };
     useEffect(() => {
         setIsFormValid(validateRegisterForm({ mail, password, username }));
@@ -55,7 +55,8 @@ const RegisterPage = ({ registerFunc }: IProps) => {
     );
 };
 const mapActionsToProps = (dispatch: Dispatch<any>) => ({
-    registerFunc: (userDetails: IUserDetails) => dispatch(registerAction(userDetails)),
+    registerFunc: (userDetails: IUserDetails, navigate: NavigateFunction) =>
+        dispatch(registerAction(userDetails, navigate)),
 });
 
 export default connect(null, mapActionsToProps)(RegisterPage);

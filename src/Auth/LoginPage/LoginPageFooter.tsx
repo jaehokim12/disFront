@@ -13,7 +13,7 @@ const getFormValidMessage = () => {
 };
 
 interface Iprops {
-    handleLogin: () => void;
+    handleLogin: any;
     isFormValid: boolean;
 }
 const LoginPageFooter = ({ isFormValid, handleLogin }: Iprops) => {

@@ -1,5 +1,5 @@
 import axios, { AxiosError, isAxiosError, AxiosResponse } from 'axios';
-
+import { logout } from './shared/utils/auth';
 // import { logout } from './shared/utils/auth';
 
 interface IUserDetails {
@@ -12,22 +12,25 @@ const apiClient = axios.create({
     timeout: 1000,
 });
 
-// apiClient.interceptors.request.use(
-//     (config: any) => {
-//         const userDetails = localStorage.getItem('user');
-//         console.log('userDetails', userDetails);
+apiClient.interceptors.request.use(
+    (config: any) => {
+        const userDetails = localStorage.getItem('user');
+        // console.log('userDetails', userDetails);
 
-//         if (userDetails) {
-//             const token = JSON.parse(userDetails).token;
-//             config.headers.Authorization = `Bearer ${token}`;
-//         }
+        if (userDetails) {
+            console.log('userdetails', JSON.parse(userDetails).data.token);
+            const token = JSON.parse(userDetails).data.token;
+            console.log('token', token);
+            config.headers.Authorization = `Bearer ${token}`;
+            console.log('config.headers.Authorization', config.headers.Authorization);
+        }
 
-//         return config;
-//     },
-//     err => {
-//         return Promise.reject(err);
-//     },
-// );
+        return config;
+    },
+    err => {
+        return Promise.reject(err);
+    },
+);
 
 export const login = async (data: IUserDetails) => {
     try {
@@ -43,7 +46,7 @@ export const login = async (data: IUserDetails) => {
 export const register = async (data: IUserDetails) => {
     try {
         let datas: AxiosResponse;
-        datas = await apiClient.post('/reiste', data);
+        datas = await apiClient.post('/register', data);
         return { data: datas };
     } catch (err) {
         return { error: err };

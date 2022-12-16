@@ -6,17 +6,15 @@ import { connect } from 'react-redux';
 import { openAlertMessage, closeAlertMessage } from '../../store/actions/alertActions';
 import { ActionFromReducersMapObject, ReducersMapObject } from 'redux';
 
-const AlertNotification = ({ showAlertMessage, alertMessageContent, closeAlertMessage }: any) => {
-    console.log('alertMessageContent:::::', alertMessageContent);
+const AlertNotification = ({ showAlertMessage, alertMessageContent, closeAlert }: any) => {
     let val = { ...alertMessageContent };
-    // let close = closeAlertMessage;
     // redux action OPEN_ALERT_MESSAGE -> reducer => showalert :true, alertmessgaeconent:
     // close 는 여기서 실행 CLOSE_ALERT_MESSAGE->reducer=> shoalert: false
     return (
         <Snackbar
             anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
             open={showAlertMessage}
-            onClose={closeAlertMessage}
+            onClose={closeAlert}
             autoHideDuration={6000}
         >
             <Alert severity="info">{val.message}</Alert>
@@ -31,7 +29,7 @@ const mapStoreStateToProps = ({ alert }: any) => {
 };
 
 const mapActionsToProps = (dispatch: any) => ({
-    closeAlertMessage: () => dispatch(closeAlertMessage),
+    closeAlert: () => dispatch(closeAlertMessage()),
 });
 
 export default connect(mapStoreStateToProps, mapActionsToProps)(AlertNotification);
