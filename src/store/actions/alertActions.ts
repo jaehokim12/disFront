@@ -1,7 +1,7 @@
 import { Action } from './alertActionType';
 
 export const openAlertMessage = (content: any) => {
-    console.log('contentcontent', content);
+    console.log('openAlertMessage', content);
     return {
         type: OPEN_ALERT_MESSAGE,
         content,

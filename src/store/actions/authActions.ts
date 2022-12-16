@@ -8,7 +8,6 @@ import { NavigateFunction } from 'react-router-dom';
 export const login = (userDetails: IUserDetails, navigate: NavigateFunction) => {
     return async (dispatch: Dispatch<any>) => {
         const response: any = await api.login(userDetails);
-        console.log('response', response);
         if (response.error) {
             dispatch(openAlertMessage(response.error));
         } else {
@@ -35,12 +34,13 @@ export const setUserDetails = (userDetails: IUserDetails): Action => {
 export const registerAction = (userDetails: IUserDetails, navigate: NavigateFunction) => {
     return async (dispatch: Dispatch<any>) => {
         const response = await api.register(userDetails);
-        console.log('response', response);
+        console.log('response in registerAction', response);
+        // 결과가 나오긴 하는데
         if (response.error) {
             dispatch(openAlertMessage(response.error));
         } else {
-            console.log('response', response.data);
-            const userDetails: any = response.data;
+            const userDetails: any = response;
+            // console.log('userDetails register', userDetails);
             localStorage.setItem('user', JSON.stringify(userDetails));
             dispatch(setUserDetails(userDetails));
             navigate('/dashboard');

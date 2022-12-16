@@ -4,9 +4,6 @@ type Props = {};
 
 const Dashboard = (props: Props) => {
     const handleLogout = () => {
-        // logout -> error
-        // logout() -> 정상
-        //  return logout -> error x  logout 동작 x
         return logout();
     };
     return (
