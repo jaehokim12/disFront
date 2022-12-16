@@ -4,6 +4,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import RegisterPage from './Auth/RegisterPage/RegisterPage';
 import LoginPage from './Auth/LoginPage/LoginPage';
 import Dashboard from './Dashboard/Dashboard';
+import AlertNotification from './shared/components/AlertNotification';
+
 function App() {
     return (
         <>
@@ -14,6 +16,7 @@ function App() {
                     <Route path="/dashboard" element={<Dashboard />}></Route>
                 </Routes>
             </BrowserRouter>
+            <AlertNotification />
         </>
     );
 }

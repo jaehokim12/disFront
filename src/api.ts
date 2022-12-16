@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError, isAxiosError, AxiosResponse } from 'axios';
 
 // import { logout } from './shared/utils/auth';
 
@@ -12,45 +12,41 @@ const apiClient = axios.create({
     timeout: 1000,
 });
 
-apiClient.interceptors.request.use(
-    (config: any) => {
-        const userDetails = localStorage.getItem('user');
+// apiClient.interceptors.request.use(
+//     (config: any) => {
+//         const userDetails = localStorage.getItem('user');
+//         console.log('userDetails', userDetails);
 
-        if (userDetails) {
-            const token = JSON.parse(userDetails).token;
-            config.headers.Authorization = `Bearer ${token}`;
-        }
+//         if (userDetails) {
+//             const token = JSON.parse(userDetails).token;
+//             config.headers.Authorization = `Bearer ${token}`;
+//         }
 
-        return config;
-    },
-    err => {
-        return Promise.reject(err);
-    },
-);
+//         return config;
+//     },
+//     err => {
+//         return Promise.reject(err);
+//     },
+// );
 
 export const login = async (data: IUserDetails) => {
     try {
-        return await apiClient.post('/auth/login', data);
-    } catch (exception) {
+        return await apiClient.post('/login', data);
+    } catch (err) {
+        const error = err as AxiosError;
         return {
-            error: true,
-            exception,
+            error: error,
         };
     }
 };
 
 export const register = async (data: IUserDetails) => {
     try {
-        return await axios({
-            method: 'post',
-            url: 'http://localhost:5002/auth/register',
-            data: data,
-        });
-    } catch (exception) {
-        return {
-            error: true,
-            exception,
-        };
+        let datas: AxiosResponse;
+        datas = await apiClient.post('/reiste', data);
+        return { data: datas };
+    } catch (err) {
+        return { error: err };
     }
 };
 

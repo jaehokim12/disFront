@@ -10,7 +10,7 @@ export const login = (userDetails: IUserDetails) => {
         const response: any = await api.login(userDetails);
 
         if (response.error) {
-            dispatch(openAlertMessage(response?.exception?.response?.data));
+            // dispatch(openAlertMessage(response?.exception?.response?.data));
         } else {
             const { userDetails } = response?.data;
             localStorage.setItem('user', JSON.stringify(userDetails));
@@ -36,16 +36,16 @@ export const setUserDetails = (userDetails: IUserDetails): Action => {
 export const registerAction = (userDetails: IUserDetails) => {
     return async (dispatch: Dispatch<any>) => {
         const response = await api.register(userDetails);
-        console.log('response');
-        // dispatch(setUserDetails(userDetails));
-        console.log('response', response);
-        if (response) {
-            // console.log('response', response);
-            // dispatch(openAlertMessage(response?.exception?.response?.data));
+
+        if (response.error) {
+            console.log('response.data', response.data);
+            console.log('response.error', response.error);
+
+            // console.log('responseerror', response.error);
+            dispatch(openAlertMessage(response.error));
         } else {
             localStorage.setItem('user', JSON.stringify(userDetails));
 
-            // 실행코드
             dispatch(setUserDetails(userDetails));
             // history.push('/dashboard');
         }

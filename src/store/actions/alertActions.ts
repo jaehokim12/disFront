@@ -1,15 +1,17 @@
-import { Dispatch } from 'react';
-import { Action, ActionType } from './alertActionType';
+import { Action } from './alertActionType';
 
-export const openAlertMessage = (content: string) => {
+export const openAlertMessage = (content: any) => {
+    console.log('contentcontent', content);
     return {
-        type: ActionType.OPEN_ALERT_MESSAGE,
+        type: OPEN_ALERT_MESSAGE,
         content,
     };
 };
 
 export const closeAlertMessage = () => {
     return {
-        type: ActionType.CLOSE_ALERT_MESSAGE,
+        type: CLOSE_ALERT_MESSAGE,
     };
 };
+const OPEN_ALERT_MESSAGE = 'OPEN_ALERT_MESSAGE';
+const CLOSE_ALERT_MESSAGE = 'CLOSE_ALERT_MESSAGE';
