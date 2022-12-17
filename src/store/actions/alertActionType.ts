@@ -1,18 +1,15 @@
-interface openAction {
-    type: OPEN_ALERT_MESSAGE;
+interface openAlertMessageAction {
+    type: alertCase.OPEN_ALERT_MESSAGE;
     content: string;
 }
 
-interface closeAction {
-    type: CLOSE_ALERT_MESSAGE;
+interface closeAlertMessageAction {
+    type: alertCase.CLOSE_ALERT_MESSAGE;
 }
 
-export type Action = openAction | closeAction;
+export type alertActionType = openAlertMessageAction | closeAlertMessageAction;
 
-// export enum ActionType {
-//     OPEN_ALERT_MESSAGE = 'OPEN_ALERT_MESSAGE',
-//     CLOSE_ALERT_MESSAGE = 'CLOSE_ALERT_MESSAGE',
-// }
-
-export type OPEN_ALERT_MESSAGE = 'OPEN_ALERT_MESSAGE';
-export type CLOSE_ALERT_MESSAGE = 'CLOSE_ALERT_MESSAGE';
+export enum alertCase {
+    OPEN_ALERT_MESSAGE = 'OPEN_ALERT_MESSAGE',
+    CLOSE_ALERT_MESSAGE = 'CLOSE_ALERT_MESSAGE',
+}

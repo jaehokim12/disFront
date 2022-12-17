@@ -15,16 +15,14 @@ const apiClient = axios.create({
 // 모든 요청을 가로채서 보낸다
 // 가로채는 이유? token
 apiClient.interceptors.request.use(
-    (config: any) => {
-        const userDetails = localStorage.getItem('user') as string;
-        // console.log('userDetails 1st ', userDetails); // string
-        if (userDetails !== 'undefined') {
-            console.log(' check  undefined');
-            const token = JSON.parse(userDetails).token;
-            config.headers.Authorization = `Bearer ${token}`;
-        } else {
-            console.log('config::::::', config);
-            return config;
+    config => {
+        const useDetails = localStorage.getItem('user');
+        if (useDetails !== null) {
+            const token = JSON.parse(useDetails).token;
+
+            config.headers = {
+                Authorization: `Bearer ${token}`,
+            };
         }
         console.log('config', config);
         return config;
@@ -35,9 +33,14 @@ apiClient.interceptors.request.use(
     },
 );
 
-export const login = async (data: IUserDetails) => {
+export const login = async (useDetails: IUserDetails) => {
     try {
-        return await apiClient.post('/login', data);
+        let datas: AxiosResponse;
+        datas = await apiClient.post('/login', useDetails);
+
+        return {
+            data: datas.data,
+        };
     } catch (err) {
         const error = err as AxiosError;
         return {
@@ -46,18 +49,14 @@ export const login = async (data: IUserDetails) => {
     }
 };
 
-export const register = async (userData: IUserDetails) => {
+export const register = async (useDetails: IUserDetails) => {
     try {
         let datas: AxiosResponse;
-        let Token;
-        datas = await apiClient.post('/register', userData);
-        console.log('register datas::::::', datas);
+        datas = await apiClient.post('/register', useDetails);
         return {
             data: datas.data,
-            Token,
         };
     } catch (err) {
-        // console.log('err', err);
         return { error: err };
     }
 };

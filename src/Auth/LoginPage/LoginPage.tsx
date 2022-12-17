@@ -6,7 +6,7 @@ import LoginPageInputs from './LoginPageInputs';
 import { validateLoginForm } from '../../shared/utils/validator';
 import { connect } from 'react-redux';
 import { useNavigate, NavigateFunction } from 'react-router-dom';
-import { login } from '../../store/actions/authActions';
+import { loginAction } from '../../store/actions/authActions';
 import { Dispatch } from 'redux';
 import { NavLink } from 'react-router-dom';
 
@@ -51,7 +51,7 @@ interface ILoginDetail {
     password: string;
 }
 const mapActionsToProps = (dispatch: Dispatch<any>) => ({
-    loginFunc: (userDetails: any, navigate: NavigateFunction) => dispatch(login(userDetails, navigate)),
+    loginFunc: (userDetails: any, navigate: NavigateFunction) => dispatch(loginAction(userDetails, navigate)),
 });
 
 export default connect(null, mapActionsToProps)(LoginPage);

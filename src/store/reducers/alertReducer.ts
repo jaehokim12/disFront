@@ -1,18 +1,19 @@
-import { Action, OPEN_ALERT_MESSAGE, CLOSE_ALERT_MESSAGE } from '../actions/alertActionType';
+import { alertActionType, alertCase } from '../actions/alertActionType';
 export const initState = {
     showAlertMessage: false,
     alertMessageContent: null,
 };
 
-const reducer = (state = initState, action: Action) => {
+//Aciont 타입의 형태 action 함수 객체이며 키는 type 을 가짐
+const reducer = (state = initState, action: alertActionType) => {
     switch (action.type) {
-        case 'OPEN_ALERT_MESSAGE':
+        case alertCase.OPEN_ALERT_MESSAGE:
             return {
                 ...state,
                 showAlertMessage: true,
                 alertMessageContent: action.content,
             };
-        case 'CLOSE_ALERT_MESSAGE':
+        case alertCase.CLOSE_ALERT_MESSAGE:
             return {
                 ...state,
                 showAlertMessage: false,
