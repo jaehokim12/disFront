@@ -5,10 +5,12 @@ import axios from 'axios';
 import { openAlertMessage } from './alertActions';
 import { NavigateFunction } from 'react-router-dom';
 import { alertActionType } from '../actions/alertActionType';
+
 interface IUserDetails {
     mail: string;
     password: string;
     username: string;
+    token?: string;
 }
 
 export const setUserDetails = (userDetails: IUserDetails): ActionType => {
@@ -17,18 +19,20 @@ export const setUserDetails = (userDetails: IUserDetails): ActionType => {
         userDetails,
     };
 };
-// Dispatch<T extends A>(action: T): T
 
 export const registerAction = (userDetails: IUserDetails, navigate: NavigateFunction) => {
+    // userDetils -> register token 없음
     return async (dispatch: Dispatch<AnyAction>) => {
         const response = await api.register(userDetails);
         if (response.error) {
             // client axios request error
             dispatch(openAlertMessage(response.error));
         } else {
+            // with token
+            // token 있는 userDetails
             const userDetails = response.data;
             // only response data
-            localStorage.setItem('user', JSON.stringify({ userDetails }));
+            localStorage.setItem('user', JSON.stringify(userDetails));
             dispatch(setUserDetails(userDetails));
             navigate('/dashboard');
         }

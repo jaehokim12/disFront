@@ -3,7 +3,7 @@ import { styled } from '@mui/system';
 import AddFriendButton from './AddFriendButton';
 import FriendsTitle from './FriendsTitle';
 import FriendsList from './FriendsList/FriendsList';
-// import PendingInvitationsList from "./PendingInvitationsList/PendingInvitationsList";
+import PendingInvitationsList from './PendingInvitationList/PendingInvitationsList';
 
 const MainContainer = styled('div')({
     width: '224px',
@@ -21,7 +21,7 @@ const FriendsSideBar = () => {
             <FriendsTitle title="Private Messages" />
             <FriendsList />
             <FriendsTitle title="Invitations" />
-            {/* <PendingInvitationsList /> */}
+            <PendingInvitationsList />
         </MainContainer>
     );
 };

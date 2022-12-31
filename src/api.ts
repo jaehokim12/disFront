@@ -7,28 +7,28 @@ interface IUserDetails {
     mail: string;
     password: string;
     username: string;
+    token?: string;
 }
 const apiClient = axios.create({
-    baseURL: 'http://localhost:5002/auth',
+    baseURL: 'http://localhost:5002/api',
     timeout: 1000,
 });
 // 모든 요청을 가로채서 보낸다
 // 가로채는 이유? token
 apiClient.interceptors.request.use(
     config => {
-        const useDetails = localStorage.getItem('user');
-        if (useDetails !== null) {
-            const token = JSON.parse(useDetails).token;
+        const userDetails = localStorage.getItem('user');
+        if (userDetails) {
+            const token = JSON.parse(userDetails).userDetails.token;
 
             config.headers = {
                 Authorization: `Bearer ${token}`,
             };
         }
-        console.log('config', config);
+
         return config;
     },
     err => {
-        console.log('err::::::', err);
         return Promise.reject(err);
     },
 );
@@ -50,6 +50,8 @@ export const login = async (useDetails: IUserDetails) => {
 };
 
 export const register = async (useDetails: IUserDetails) => {
+    // userDetails-> token 없읍
+    // 반환시 token 있음
     try {
         let datas: AxiosResponse;
         datas = await apiClient.post('/register', useDetails);

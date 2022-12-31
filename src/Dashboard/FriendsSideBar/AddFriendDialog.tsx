@@ -9,16 +9,19 @@ import { validateMail } from '../../shared/utils/validator';
 import InputWithLabel from '../../shared/components/InputWithLabel';
 import CustomPrimaryButton from '../../shared/components/CustomPrimaryButton';
 import { connect } from 'react-redux';
-// import { getActions } from '../../store/actions/friendsActions';
+import { getActions } from '../../store/actions/friendsActions';
 
 const AddFriendDialog = ({ isDialogOpen, closeDialogHandler, sendFriendInvitation = () => {} }: any) => {
     const [mail, setMail] = useState('');
-    const [isFormValid, setIsFormValid] = useState('');
+    const [isFormValid, setIsFormValid] = useState<boolean>(false);
 
     const handleSendInvitation = () => {
-        sendFriendInvitation({
-            mail: mail,
-        });
+        sendFriendInvitation(
+            {
+                targetMailAddress: mail,
+            },
+            handleCloseDialog,
+        );
     };
 
     const handleCloseDialog = () => {
@@ -27,7 +30,7 @@ const AddFriendDialog = ({ isDialogOpen, closeDialogHandler, sendFriendInvitatio
     };
 
     useEffect(() => {
-        // setIsFormValid(validateMail(mail));
+        setIsFormValid(validateMail(mail));
     }, [mail, setIsFormValid]);
 
     return (
@@ -37,9 +40,7 @@ const AddFriendDialog = ({ isDialogOpen, closeDialogHandler, sendFriendInvitatio
                     <Typography>Invite a Friend</Typography>
                 </DialogTitle>
                 <DialogContent>
-                    <DialogContentText>
-                        <Typography>Enter e-mail address of friend which you would like to invite</Typography>
-                    </DialogContentText>
+                    <DialogContentText>Enter e-mail address of friend which you would like to invite</DialogContentText>
                     <InputWithLabel
                         label="Mail"
                         type="text"
@@ -66,6 +67,9 @@ const AddFriendDialog = ({ isDialogOpen, closeDialogHandler, sendFriendInvitatio
 };
 
 const mapActionsToProps = (dispatch: any) => {
-    // return { ...getActions(dispatch) };
+    return {
+        ...getActions(dispatch),
+    };
 };
+
 export default connect(null, mapActionsToProps)(AddFriendDialog);
