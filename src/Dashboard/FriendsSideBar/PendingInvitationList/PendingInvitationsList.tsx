@@ -13,6 +13,7 @@ const MainContainer = styled('div')({
 });
 
 const PendingInvitationsList = ({ pendingFriendsInvitations }: any) => {
+    console.log('pendingFriendsInvitations', pendingFriendsInvitations);
     return (
         <MainContainer>
             {pendingFriendsInvitations.map((value: any, key: any) => {
@@ -20,7 +21,7 @@ const PendingInvitationsList = ({ pendingFriendsInvitations }: any) => {
                     <PendingInvitationsListItem
                         key={key}
                         // id={invitation.id}
-                        username={value.username}
+                        username={value.sender}
                         // mail={invitation.mail}
                     />
                 );

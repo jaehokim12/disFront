@@ -24,6 +24,7 @@ export const setPendingFriendsInvitations = (pendingFriendsInvitations: any) => 
 };
 
 export const setFriends = (friends: any) => {
+    console.log('setfri', friends);
     return {
         type: friendsActions.SET_FRIENDS,
         friends,

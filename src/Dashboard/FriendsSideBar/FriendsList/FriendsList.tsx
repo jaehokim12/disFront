@@ -8,24 +8,19 @@ const MainContainer = styled('div')({
     width: '100%',
 });
 
-const checkOnlineUsers = (friends = [], onlineUsers = []) => {
-    friends.forEach((f: any) => {
-        const isUserOnline = onlineUsers.find((user: any) => user.userId === f.id);
-        f.isOnline = isUserOnline ? true : false;
-    });
-
-    return friends;
-};
-
 const FriendsList = ({ friends }: any) => {
+    console.log('friend at coponent', friends);
     return (
         <MainContainer>
-            <FriendsListItem username={friends} />
+            {friends.map((f: any, key: any) => (
+                <FriendsListItem username={f.username} key={key} />
+            ))}
         </MainContainer>
     );
 };
 
 const mapStoreStateToProps = ({ friends }: any) => {
+    console.log('redux friends', friends);
     return {
         ...friends,
     };

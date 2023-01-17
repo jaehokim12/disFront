@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import { chatTypes, getActions } from '../../../store/actions/chatActions';
 import { connect } from 'react-redux';
 const FriendsListItem = ({ username, setChosenChatDetails }: any) => {
+    console.log('username at flt', username);
     const handleChooseActiveConversation = () => {
         setChosenChatDetails({ name: username }, chatTypes.DIRECT);
     };
@@ -24,7 +25,7 @@ const FriendsListItem = ({ username, setChosenChatDetails }: any) => {
                 position: 'relative',
             }}
         >
-            <Avatar username={username.toString().substring(0, 2)} />
+            <Avatar username={username} />
             <Typography
                 style={{
                     marginLeft: '7px',

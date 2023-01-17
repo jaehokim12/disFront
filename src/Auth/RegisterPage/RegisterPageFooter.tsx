@@ -1,8 +1,8 @@
 import React from 'react';
 import CustomPrimaryButton from '../../shared/components/CustomPrimaryButton';
-import * as Router from 'react-router-dom';
 import { Tooltip } from '@mui/material';
 import RedirectInfo from '../../shared/components/RedirectInfo';
+import { useHistory } from 'react-router-dom';
 const getFormNotValidMessage = () => {
     return 'Username should contains between 3 and 12 characters and password should contains between 6 and 12 character. Also correct e-mail address should provided';
 };
@@ -17,9 +17,10 @@ interface IProps {
 }
 
 const RegisterPageFooter = ({ handleRegister, isFormValid }: IProps) => {
-    const navigate = Router.useNavigate();
+    // const navigate = Router.useNavigate();
+    const history = useHistory();
     const handlePushToLoginPage = () => {
-        navigate('/login');
+        history.push('/login');
     };
     return (
         <>
@@ -28,7 +29,7 @@ const RegisterPageFooter = ({ handleRegister, isFormValid }: IProps) => {
                     <CustomPrimaryButton
                         label="Register"
                         additionalStyles={{ marginTop: '30px' }}
-                        disabled={isFormValid}
+                        disabled={!isFormValid}
                         onClick={handleRegister}
                     />
                 </div>

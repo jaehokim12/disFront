@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 interface IProps {
     additionalStyles?: React.CSSProperties;
     label?: string;
-    disabled?: boolean | undefined;
+    disabled?: any;
     onClick?: () => void;
 }
 const CustomPrimaryButton = ({ label, additionalStyles, disabled, onClick }: IProps) => {

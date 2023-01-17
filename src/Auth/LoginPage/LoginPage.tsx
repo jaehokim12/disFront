@@ -5,17 +5,20 @@ import LoginPageHeader from './LoginPageHeader';
 import LoginPageInputs from './LoginPageInputs';
 import { validateLoginForm } from '../../shared/utils/validator';
 import { connect } from 'react-redux';
-import { useNavigate, NavigateFunction } from 'react-router-dom';
-import { loginAction } from '../../store/actions/authActions';
+// import { useNavigate, NavigateFunction } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { login } from '../../store/actions/authActions';
 import { Dispatch } from 'redux';
 import { NavLink } from 'react-router-dom';
+import { getActions } from '../../store/actions/authActions';
 
 interface Iprops {
     loginFunc: any;
 }
 
-const LoginPage = ({ loginFunc }: Iprops) => {
-    const navigate = useNavigate();
+const LoginPage = ({ login }: any) => {
+    // const navigate = useNavigate();
+    const history = useHistory();
 
     const [mail, setMail] = useState('');
     const [password, setPassword] = useState('');
@@ -28,12 +31,13 @@ const LoginPage = ({ loginFunc }: Iprops) => {
     // type handleFun = ()=>(dispatch: Dispatch<any>) => Promise<void>
 
     const handleLogin = () => {
-        const userDetails = {
+        const userDetail = {
             mail,
             password,
         };
 
-        loginFunc(userDetails, navigate);
+        // loginFunc(userDetail, navigate);
+        login(userDetail, history);
         //  handlelogin이라는 값을 물려받으면
         // 물려받기만 하면 action함수 실행함
     };
@@ -50,8 +54,14 @@ interface ILoginDetail {
     mail: string;
     password: string;
 }
-const mapActionsToProps = (dispatch: Dispatch<any>) => ({
-    loginFunc: (userDetails: any, navigate: NavigateFunction) => dispatch(loginAction(userDetails, navigate)),
-});
+// const mapActionsToProps = (dispatch: any) => ({
+//     // loginFunc: (userDetail: any, navigate: NavigateFunction) => dispatch(login(userDetail, navigate)),
+//     loginFunc: (userDetail: any, history: any) => dispatch(login(userDetail, history)),
+// });
+const mapActionsToProps = (dispatch: any) => {
+    return {
+        ...getActions(dispatch),
+    };
+};
 
 export default connect(null, mapActionsToProps)(LoginPage);

@@ -23,13 +23,12 @@ const MessageContent = styled('div')({
 });
 
 const Message = ({ username, content }: any) => {
+    console.log('username at message', username);
+    console.log('username at content', content);
     return (
         <MainContainer>
-            <AvatarContainer>
-                <Avatar username={username} />
-            </AvatarContainer>
             <MessageContainer>
-                <Typography>{username}</Typography>
+                <Typography style={{ fontSize: '16px', color: 'white' }}>{username} </Typography>
                 <MessageContent>{content}</MessageContent>
             </MessageContainer>
         </MainContainer>

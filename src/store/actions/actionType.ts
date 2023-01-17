@@ -1,9 +1,9 @@
 interface setUserDetailsAction {
-    type: ActionCase.SET_USER_DETAILS;
-    userDetails: IUserDetails;
+    type: ActionCase.SET_USER_DETAIL;
+    userDetail: any;
 }
 
-interface IUserDetails {
+interface IUserDetail {
     mail: string;
     password: string;
     username: string;
@@ -12,5 +12,5 @@ interface IUserDetails {
 export type ActionType = setUserDetailsAction;
 
 export enum ActionCase {
-    SET_USER_DETAILS = 'SET_USER_DETAILS',
+    SET_USER_DETAIL = 'SET_USER_DETAIL',
 }

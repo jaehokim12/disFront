@@ -1,7 +1,8 @@
 import React from 'react';
 import CustomPrimaryButton from '../../shared/components/CustomPrimaryButton';
 import RedirectInfo from '../../shared/components/RedirectInfo';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { Tooltip } from '@mui/material';
 import { Dispatch } from 'redux';
 const getFormNotValidMessage = () => {
@@ -17,10 +18,10 @@ interface Iprops {
     isFormValid: boolean;
 }
 const LoginPageFooter = ({ isFormValid, handleLogin }: Iprops) => {
-    const navigate = useNavigate();
-
+    // const navigate = useNavigate();
+    const history = useHistory();
     const handlePushToRegisterPage = () => {
-        navigate('/register');
+        history.push('/register');
     };
 
     return (

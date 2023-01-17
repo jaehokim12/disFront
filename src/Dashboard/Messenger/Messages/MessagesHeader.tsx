@@ -12,7 +12,7 @@ const MainContainer = styled('div')({
 const MessagesHeader = ({ username = '' }) => {
     return (
         <MainContainer>
-            <Avatar username={username.toString().substring(0, 2)} />
+            <Avatar username={username} />
             <Typography
                 variant="h4"
                 sx={{

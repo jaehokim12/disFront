@@ -6,8 +6,9 @@ import Messenger from './Messenger/Messenger';
 import AppBar from './AppBar/AppBar';
 import { logout } from '../shared/utils/auth';
 import { connect } from 'react-redux';
-import { setUserDetails } from '../store/actions/authActions';
+// import { setUserDetail } from '../store/actions/authActions';
 import { connectWithSocketServer } from '../realtimeCommunication/socketConnection';
+import { getActions } from '../store/actions/authActions';
 import { Dispatch } from 'redux';
 const Wrapper = styled('div')({
     width: '100%',
@@ -15,18 +16,21 @@ const Wrapper = styled('div')({
     display: 'flex',
 });
 
-interface Iprops {
-    setUserDetails: (param: any) => void;
-}
-const Dashboard = ({ setUserDetails }: Iprops) => {
+// interface Iprops {
+//     setUserDetail: (param: any) => void;
+// }
+const Dashboard = ({ setUserDetail }: any) => {
+    console.log('setUserDetailsetUserDetail', setUserDetail);
     useEffect(() => {
-        const userDetails = localStorage.getItem('user');
+        console.log('useEffect Dsh board');
+        const userDetail = localStorage.getItem('user');
+        console.log('userDetails at Dashboard', userDetail);
 
-        if (!userDetails) {
+        if (!userDetail) {
             logout();
         } else {
-            setUserDetails(JSON.parse(userDetails));
-            connectWithSocketServer(JSON.parse(userDetails));
+            setUserDetail(JSON.parse(userDetail));
+            connectWithSocketServer(JSON.parse(userDetail));
         }
     }, []);
 
@@ -40,10 +44,12 @@ const Dashboard = ({ setUserDetails }: Iprops) => {
     );
 };
 
-const mapActionsToProps = (dispatch: Dispatch<any>) => ({
-    setUserDetails: (userDetails: any) => {
-        return dispatch(setUserDetails(userDetails));
-    },
-});
-
+// const mapActionsToProps = (dispatch: any) => ({
+//     setUserDetail: (userDetail: any) => dispatch(setUserDetail(userDetail)),
+// });
+const mapActionsToProps = (dispatch: any) => {
+    return {
+        ...getActions(dispatch),
+    };
+};
 export default connect(null, mapActionsToProps)(Dashboard);

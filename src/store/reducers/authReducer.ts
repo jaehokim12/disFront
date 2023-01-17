@@ -1,15 +1,15 @@
 import { ActionCase, ActionType } from '../actions/actionType';
 
 const initState = {
-    userDetails: null,
+    userDetail: null,
 };
 
 const reducer = (state = initState, action: ActionType) => {
     switch (action.type) {
-        case ActionCase.SET_USER_DETAILS:
+        case ActionCase.SET_USER_DETAIL:
             return {
                 ...state,
-                userDetails: action.userDetails,
+                userDetail: action.userDetail,
             };
 
         default:

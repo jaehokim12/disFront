@@ -15,8 +15,9 @@ const AvatarPreview = styled('div')({
     color: 'white',
 });
 
-const Avatar = ({ username }: any) => {
-    return <AvatarPreview style={{}}>{username}</AvatarPreview>;
+const Avatar = ({ username, large }: any) => {
+    console.log('avatar usernaem', username);
+    return <AvatarPreview style={{}}>{username.substring(0, 2)}</AvatarPreview>;
 };
 
 export default Avatar;

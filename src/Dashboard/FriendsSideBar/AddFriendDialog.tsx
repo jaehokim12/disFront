@@ -13,7 +13,7 @@ import { getActions } from '../../store/actions/friendsActions';
 
 const AddFriendDialog = ({ isDialogOpen, closeDialogHandler, sendFriendInvitation = () => {} }: any) => {
     const [mail, setMail] = useState('');
-    const [isFormValid, setIsFormValid] = useState<boolean>(false);
+    const [isFormValid, setIsFormValid] = useState('') as any;
 
     const handleSendInvitation = () => {
         sendFriendInvitation(
@@ -31,6 +31,7 @@ const AddFriendDialog = ({ isDialogOpen, closeDialogHandler, sendFriendInvitatio
 
     useEffect(() => {
         setIsFormValid(validateMail(mail));
+        console.log('setIsFormValid(validateMail(mail))', validateMail(mail));
     }, [mail, setIsFormValid]);
 
     return (
