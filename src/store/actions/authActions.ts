@@ -31,7 +31,6 @@ export const register = (userDetail: any, history: any) => {
     // userDetils -> register token 없음
     return async (dispatch: any) => {
         const response: any = await api.register(userDetail);
-        console.log(response);
         if (response.error) {
             // client axios request error
             dispatch(openAlertMessage(response?.exception?.response?.data));
@@ -39,7 +38,6 @@ export const register = (userDetail: any, history: any) => {
             // with token
             // token 있는 userDetails
             const { userDetail } = response?.data;
-            console.log('userDetilasssss', userDetail);
             // only response data
             localStorage.setItem('user', JSON.stringify(userDetail));
             dispatch(setUserDetail(userDetail));
@@ -51,12 +49,12 @@ export const register = (userDetail: any, history: any) => {
 export const login = (userDetail: IUserDetail, history: any) => {
     return async (dispatch: any) => {
         const response: any = await api.login(userDetail);
-        console.log('response after login', response);
+
         if (response.error) {
             dispatch(openAlertMessage(response?.exception?.response?.data));
         } else {
             const { userDetail } = response?.data;
-            console.log('userDetail login:::', userDetail);
+
             localStorage.setItem('user', JSON.stringify(userDetail));
             dispatch(setUserDetail(userDetail));
             history.push('/dashboard');

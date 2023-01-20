@@ -16,7 +16,6 @@ const AvatarPreview = styled('div')({
 });
 
 const Avatar = ({ username, large }: any) => {
-    console.log('avatar usernaem', username);
     return <AvatarPreview style={{}}>{username.substring(0, 2)}</AvatarPreview>;
 };
 

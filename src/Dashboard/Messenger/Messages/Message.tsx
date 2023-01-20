@@ -23,8 +23,6 @@ const MessageContent = styled('div')({
 });
 
 const Message = ({ username, content }: any) => {
-    console.log('username at message', username);
-    console.log('username at content', content);
     return (
         <MainContainer>
             <MessageContainer>

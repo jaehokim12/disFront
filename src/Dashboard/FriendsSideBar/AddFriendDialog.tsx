@@ -31,7 +31,6 @@ const AddFriendDialog = ({ isDialogOpen, closeDialogHandler, sendFriendInvitatio
 
     useEffect(() => {
         setIsFormValid(validateMail(mail));
-        console.log('setIsFormValid(validateMail(mail))', validateMail(mail));
     }, [mail, setIsFormValid]);
 
     return (

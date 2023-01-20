@@ -9,7 +9,6 @@ const MainContainer = styled('div')({
 });
 
 const FriendsList = ({ friends }: any) => {
-    console.log('friend at coponent', friends);
     return (
         <MainContainer>
             {friends.map((f: any, key: any) => (
@@ -20,7 +19,6 @@ const FriendsList = ({ friends }: any) => {
 };
 
 const mapStoreStateToProps = ({ friends }: any) => {
-    console.log('redux friends', friends);
     return {
         ...friends,
     };

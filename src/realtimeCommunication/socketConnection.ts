@@ -8,28 +8,22 @@ interface IUserDetail {
 }
 let socket: any = null;
 export const connectWithSocketServer = (userDetail: any) => {
-    console.log('connectWithSocketServer userDetail', userDetail);
     const jwtToken = userDetail.token;
-    console.log('jwttoken', jwtToken);
     socket = io('http://localhost:5002', {
         auth: {
             token: jwtToken,
         },
     });
 
-    socket.on('connect', () => {
-        console.log('succesfully connected with socket.io server');
-        console.log(socket.id);
-    });
+    socket.on('connect', () => {});
     socket.on('friends-list', (data: any) => {
         const { friends } = data;
-        console.log('friends list at socket:::::', friends);
 
         store.dispatch(setFriends(friends));
     });
     socket.on('friends-invitations', (data: any) => {
         const { pendingInvitations } = data;
-        console.log('invite at front :::: ', data);
+
         store.dispatch(setPendingFriendsInvitations([pendingInvitations]));
     });
 
