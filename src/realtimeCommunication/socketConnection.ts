@@ -9,7 +9,7 @@ interface IUserDetail {
 let socket: any = null;
 export const connectWithSocketServer = (userDetail: any) => {
     const jwtToken = userDetail.token;
-    socket = io('http://localhost:5002', {
+    socket = io('http://219.240.7.88:5002', {
         auth: {
             token: jwtToken,
         },

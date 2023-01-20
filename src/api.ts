@@ -9,11 +9,10 @@ interface IUserDetail {
     token?: string;
 }
 const apiClient = axios.create({
-    baseURL: 'http://localhost:5002/api',
+    baseURL: 'http://219.240.7.88:5002/api',
     timeout: 1000,
 });
-// 모든 요청을 가로채서 보낸다
-// 가로채는 이유? token
+
 apiClient.interceptors.request.use(
     (config: any) => {
         // here
