@@ -2,9 +2,9 @@ Discord Chat project with socket io
 
 #### 1 .계정 생성 화면
 
-![1674228965359](image/README/1674228965359.png)
-
 유저1의 생성 화면 입니다.
+
+![1674228965359](image/README/1674228965359.png)
 
 #### 1 .2 계정 생성 화면
 
