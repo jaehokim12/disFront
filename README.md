@@ -1,5 +1,7 @@
 Discord Chat project with socket io
 
+### service adress : http://jaeho91.pe.kr/
+
 #### 1 .계정 생성 화면
 
 유저1의 생성 화면 입니다.
